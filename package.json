@@ -1,0 +1,38 @@
+{
+  "name": "connect-chain-if",
+  "version": "0.0.1",
+  "description": "Connect middleware that composes a new middleware from a chain of middlewares. Supports conditional chaining.",
+  "keywords": [
+    "chain",
+    "connect",
+    "middleware",
+    "conditional",
+    "express"
+  ],
+  "homepage": "https://github.com/commenthol/connect-chain-if/",
+  "bugs": {
+    "url": "https://github.com/commenthol/connect-chain-if/issues"
+  },
+  "author": { "name" : "commenthol",
+    "url" : "https://github.com/commenthol/"
+  },
+  "license": "MIT",
+  "main": "lib/chain",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/commenthol/connect-chain-if.git"
+  },
+  "dependencies": {
+    "connect-chain": "~0.1.0"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "expect.js": "*"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "directories": {
+    "test": "test"
+  }
+}
