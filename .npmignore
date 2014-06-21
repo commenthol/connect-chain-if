@@ -1,3 +1,5 @@
 .npmignore
-*.tgz
+.gitignore
 test/samples/
+connect-chain-if-*.tgz
+tmp/

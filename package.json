@@ -23,11 +23,10 @@
     "url": "git://github.com/commenthol/connect-chain-if.git"
   },
   "dependencies": {
-    "connect-chain": "~0.1.0"
   },
   "devDependencies": {
     "mocha": "*",
-    "expect.js": "*"
+    "express": "*"
   },
   "scripts": {
     "test": "mocha"

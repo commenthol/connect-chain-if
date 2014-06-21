@@ -8,8 +8,7 @@ passed to the next error middleware of type `function(err, req, res, next)` in t
 
 You can use "connect-chain-if" to build up new middlewares from existing connect-style-middlewares using the conditional expressions `chain.if()` and `chain.switch()`.
 
-All middlewares are processed via the node event loop using `process.nextTick` to break up long lasting middleware chains.
-This is altered for `NODE_ENV=development` or by calling `chain.options({nextTick: false})`. This is in particular usefull for debugging purposes.
+To allow breaking up long lasting middleware chains, all middlewares within a chain are processed via the node event loop using `process.nextTick` instead of being processed synchroniously. Use `chain.nextTick(false);` to revert to the synchronous behaviour. 
 
 ## Usage
 
