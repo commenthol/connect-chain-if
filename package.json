@@ -1,6 +1,6 @@
 {
   "name": "connect-chain-if",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Connect middleware that composes a new middleware from a chain of middlewares. Supports conditional chaining.",
   "keywords": [
     "chain",
