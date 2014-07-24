@@ -8,7 +8,7 @@ passed to the next error middleware of type `function(err, req, res, next)` in t
 
 You can use "connect-chain-if" to build up new middlewares from existing connect-style-middlewares using the conditional expressions `chain.if()` and `chain.switch()`.
 
-To allow breaking up long lasting middleware chains, all middlewares within a chain are processed via the node event loop using `process.nextTick` instead of being processed synchroniously. Use `chain.nextTick(false);` to revert to the synchronous behaviour. 
+To allow breaking up long lasting middleware chains, all middlewares within a chain are processed via the node event loop using `process.nextTick` instead of being processed synchroniously. Use `chain.nextTick(false);` to revert to the synchronous behaviour.
 
 ## Usage
 
@@ -17,7 +17,7 @@ To allow breaking up long lasting middleware chains, all middlewares within a ch
 ```javascript
 var
   express = require('express'),
-  chain = require('connect-chain');
+  chain = require('connect-chain-if');
 
 var
   app = express(),
@@ -46,7 +46,7 @@ app.listen(3000);
 
 ```javascript
 var
-  chain = require('connect-chain');
+  chain = require('connect-chain-if');
 
 var
   middleware1 = function(req, res, next) {
@@ -90,7 +90,7 @@ middleware3
 ```javascript
 var
   http = require('http'),
-  chain = require('connect-chain');
+  chain = require('connect-chain-if');
 
 var
   middleware1 = function(req, res, next) {
@@ -132,7 +132,7 @@ You can either use `chain.if` or `chain.switch` to define conditional middleware
 
 ```javascript
 var
-  chain = require('connect-chain');
+  chain = require('connect-chain-if');
 
 var middleware = function(req, res, next) {
   chain([
@@ -178,7 +178,7 @@ Using `chain.switch`:
 
 ```javascript
 var
-  chain = require('connect-chain');
+  chain = require('connect-chain-if');
 
 var middleware = function(req, res, next) {
   chain([
