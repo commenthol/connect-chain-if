@@ -1,5 +1,7 @@
-.npmignore
-.gitignore
-test/samples/
-connect-chain-if-*.tgz
+examples/
 tmp/
+test/
+Makefile
+*.tgz
+.*
+yarn.lock

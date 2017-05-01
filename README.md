@@ -112,7 +112,7 @@ var
     res.end();
   };
 
-http.createServer(chain([ middleware1, middleware2, middlewareErr ]))
+http.createServer(chain(middleware1, middleware2, middlewareErr))
   .listen(3000, 'localhost');
 ```
 

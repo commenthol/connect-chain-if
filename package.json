@@ -1,7 +1,9 @@
 {
   "name": "connect-chain-if",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Connect middleware that composes a new middleware from a chain of middlewares. Supports conditional chaining.",
+  "main": "lib",
+  "license": "MIT",
   "keywords": [
     "chain",
     "connect",
@@ -13,25 +15,33 @@
   "bugs": {
     "url": "https://github.com/commenthol/connect-chain-if/issues"
   },
-  "author": { "name" : "commenthol",
-    "url" : "https://github.com/commenthol/"
+  "author": {
+    "name": "commenthol",
+    "url": "https://github.com/commenthol/"
   },
-  "license": "MIT",
-  "main": "lib/chain",
   "repository": {
     "type": "git",
     "url": "git://github.com/commenthol/connect-chain-if.git"
   },
-  "dependencies": {
-  },
-  "devDependencies": {
-    "mocha": "*",
-    "express": "*"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
   "directories": {
     "test": "test"
+  },
+  "scripts": {
+    "test": "mocha",
+    "lint": "eslint '**/*.js'"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "express": "*",
+    "mocha": "*"
+  },
+  "eslintConfig": {
+    "extends": "standard"
   }
 }
