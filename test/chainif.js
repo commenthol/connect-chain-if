@@ -9,8 +9,8 @@
 
 'use strict'
 
-var assert = require('assert')
-var chain = require('..')
+const assert = require('assert')
+const chain = require('..')
 
 /**
  * generic middleware for our tests
@@ -18,11 +18,11 @@ var chain = require('..')
  * @property {Object} options.name : push `options.name` to `res.name`
  * @property {Object} options.res : add `options.res` to `res`
  */
-var middleware = function (options) {
+const middleware = function (options) {
   options = options || {}
 
   return function (req, res, next) {
-    var i
+    let i
 
     if (options.name) {
       if (!res.name) {
@@ -45,83 +45,88 @@ var middleware = function (options) {
 
 describe('chain.if', function () {
   it('should evaluate to else with one if', function (done) {
-    var req = {}
-    var res = {}
-    var a = 0
+    const req = {}
+    const res = {}
+    const a = 0
 
     chain.if(
       a === 1, middleware({ name: 'if1' }),
       middleware({ name: 'else' })
     )(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { name: ['else'] })
       done()
     })
   })
 
   it('should evaluate to a===1', function (done) {
-    var req = {}
-    var res = {}
-    var a = 1
+    const req = {}
+    const res = {}
+    const a = 1
 
     chain.if(
       a === 1, middleware({ name: 'if1' }),
       a === 2, middleware({ name: 'if2' }),
       middleware({ name: 'else' })
     )(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { name: ['if1'] })
       done()
     })
   })
 
   it('should evaluate to a===2', function (done) {
-    var req = {}
-    var res = {}
-    var a = 2
+    const req = {}
+    const res = {}
+    const a = 2
 
     chain.if(
       a === 1, middleware({ name: 'if1' }),
       a === 2, middleware({ name: 'if2' }),
       middleware({ name: 'else' })
     )(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { name: ['if2'] })
       done()
     })
   })
 
   it('should evaluate to else', function (done) {
-    var req = {}
-    var res = {}
-    var a = 0
+    const req = {}
+    const res = {}
+    const a = 0
 
     chain.if(
       a === 1, middleware({ name: 'if1' }),
       a === 2, middleware({ name: 'if2' }),
       middleware({ name: 'else' })
     )(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { name: ['else'] })
       done()
     })
   })
 
   it('should evaluate to else not being explicitely set', function (done) {
-    var req = {}
-    var res = {}
-    var a = 0
+    const req = {}
+    const res = {}
+    const a = 0
 
     chain.if(
       a === 1, middleware({ name: 'if1' }),
       a === 2, middleware({ name: 'if2' })
     )(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, {})
       done()
     })
   })
 
   it('should nest if statements', function (done) {
-    var req = {}
-    var res = {}
-    var a = 0
-    var b = 1
+    const req = {}
+    const res = {}
+    const a = 0
+    const b = 1
 
     chain.if(
       a === 1, middleware({ name: 'ifa1' }),
@@ -129,16 +134,17 @@ describe('chain.if', function () {
         b === 1, middleware({ name: 'ifb1' })
       )
     )(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { name: ['ifb1'] })
       done()
     })
   })
 
   it('should combine conditional if middlewares', function (done) {
-    var req = {}
-    var res = {}
-    var a = 0
-    var b = 1
+    const req = {}
+    const res = {}
+    const a = 0
+    const b = 1
 
     chain([
       middleware({ name: 'one' }),
@@ -150,6 +156,7 @@ describe('chain.if', function () {
       ),
       middleware({ name: 'two' })
     ])(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { name: ['one', 'ifb1', 'two'] })
       done()
     })

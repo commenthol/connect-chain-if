@@ -9,8 +9,8 @@
 
 'use strict'
 
-var assert = require('assert')
-var chain = require('..')
+const assert = require('assert')
+const chain = require('..')
 
 // random value
 function random () {
@@ -25,13 +25,13 @@ function newMiddleware () {
   }
 }
 
-describe('run 2500 middlewares', function () {
+describe('run 2000 middlewares', function () {
   it('- synchronously', function (done) {
-    var i
-    var size = 2500 // c.a. size = 2850 is the maximum number of middlewares
-    var middlewares = []
-    var req = {}
-    var res = {number: 0, count: 0}
+    let i
+    const size = 2000 // c.a. size = 2850 is the maximum number of middlewares
+    const middlewares = []
+    const req = {}
+    const res = { number: 0, count: 0 }
 
     // compose middlewares
     for (i = 0; i < size; i++) {
@@ -40,6 +40,7 @@ describe('run 2500 middlewares', function () {
 
     chain.nextTick(false)
     chain(middlewares)(req, res, function (err) {
+      assert.equal(err, null)
       assert.equal(middlewares.length, size)
       assert.equal(res.count, size)
       done()
@@ -51,11 +52,11 @@ describe('run 1 mio middlewares', function () {
   this.timeout(10000)
 
   it('- with nextTick', function (done) {
-    var i
-    var size = 1000000
-    var middlewares = []
-    var req = {}
-    var res = {number: 0, count: 0}
+    let i
+    const size = 1000000
+    const middlewares = []
+    const req = {}
+    const res = { number: 0, count: 0 }
 
     // compose middlewares
     for (i = 0; i < size; i++) {
@@ -64,6 +65,7 @@ describe('run 1 mio middlewares', function () {
 
     chain.nextTick(true)
     chain(middlewares)(req, res, function (err) {
+      assert.equal(err, null)
       assert.equal(middlewares.length, size)
       assert.equal(res.count, size)
       assert.ok(res.number > size)

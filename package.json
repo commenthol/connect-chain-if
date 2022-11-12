@@ -27,21 +27,17 @@
     "test": "test"
   },
   "scripts": {
+    "all": "npm run lint && npm t",
     "test": "mocha",
-    "lint": "eslint '**/*.js'"
+    "lint": "eslint --ext .js ."
   },
-  "dependencies": {},
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-node": "^4.2.2",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "express": "*",
-    "mocha": "*"
-  },
-  "eslintConfig": {
-    "extends": "standard"
+    "eslint": "^8.27.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.5.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "express": "^4.18.2",
+    "mocha": "^10.1.0"
   }
 }

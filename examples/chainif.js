@@ -1,6 +1,6 @@
-var chain = require('..')
+const chain = require('..')
 
-var middleware = function (req, res, next) {
+const middleware = function (req, res, next) {
   chain([
     chain.if(
       /* if */ /^\/$/.test(req.url), [ // defines a new middleware chain here
@@ -32,9 +32,9 @@ var middleware = function (req, res, next) {
   })
 }
 
-middleware({url: '/'}, {})
+middleware({ url: '/' }, {})
 // > 200 'homepage'
-middleware({url: '/error500'}, {})
+middleware({ url: '/error500' }, {})
 // > 500 'weired'
-middleware({url: '/something'}, {})
+middleware({ url: '/something' }, {})
 // > 404 'no idea'

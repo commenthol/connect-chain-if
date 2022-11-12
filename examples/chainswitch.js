@@ -1,6 +1,6 @@
-var chain = require('..')
+const chain = require('..')
 
-var middleware = chain([
+const middleware = chain([
   chain.switch(
     /* switch */ function (req, res) {
       return req.url
@@ -33,7 +33,7 @@ var middleware = chain([
 
 middleware({ url: '/' }, {})
 // > 200 'homepage'
-middleware({url: '/error500'}, {})
+middleware({ url: '/error500' }, {})
 // > 500 'weired'
-middleware({url: '/something'}, {})
+middleware({ url: '/something' }, {})
 // > 404 'no idea'

@@ -9,8 +9,8 @@
 
 'use strict'
 
-var assert = require('assert')
-var chain = require('..')
+const assert = require('assert')
+const chain = require('..')
 
 /**
  * generic middleware for our tests
@@ -18,11 +18,11 @@ var chain = require('..')
  * @property {Object} options.name : push `options.name` to `res.name`
  * @property {Object} options.res : add `options.res` to `res`
  */
-var middleware = function (options) {
+const middleware = function (options) {
   options = options || {}
 
   return function (req, res, next) {
-    var i
+    let i
 
     if (options.name) {
       if (!res.name) {
@@ -45,83 +45,88 @@ var middleware = function (options) {
 
 describe('chain.switch', function () {
   it('- evaluate to default with one case expr', function (done) {
-    var req = {}
-    var res = {}
-    var a = 0
+    const req = {}
+    const res = {}
+    const a = 0
 
     chain.switch(a,
       1, middleware({ name: 'case1' }),
       middleware({ name: 'default' })
     )(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { name: ['default'] })
       done()
     })
   })
 
   it('- evaluate to a===1', function (done) {
-    var req = {}
-    var res = {}
-    var a = 1
+    const req = {}
+    const res = {}
+    const a = 1
 
     chain.switch(a,
-        1, middleware({ name: 'case1' }),
-        2, middleware({ name: 'case2' }),
-        middleware({ name: 'default' })
+      1, middleware({ name: 'case1' }),
+      2, middleware({ name: 'case2' }),
+      middleware({ name: 'default' })
     )(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { name: ['case1'] })
       done()
     })
   })
 
   it('- evaluate to a===2', function (done) {
-    var req = {}
-    var res = {}
-    var a = 2
+    const req = {}
+    const res = {}
+    const a = 2
 
     chain.switch(a,
       1, middleware({ name: 'case1' }),
       2, middleware({ name: 'case2' }),
       middleware({ name: 'default' })
     )(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { name: ['case2'] })
       done()
     })
   })
 
   it('- evaluate to default', function (done) {
-    var req = {}
-    var res = {}
-    var a = 0
+    const req = {}
+    const res = {}
+    const a = 0
 
     chain.switch(a,
       1, middleware({ name: 'case1' }),
       2, middleware({ name: 'case2' }),
       middleware({ name: 'default' })
     )(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { name: ['default'] })
       done()
     })
   })
 
   it('- evaluate to else not being explicitely set', function (done) {
-    var req = {}
-    var res = {}
-    var a = 0
+    const req = {}
+    const res = {}
+    const a = 0
 
     chain.switch(a,
       1, middleware({ name: 'case1' }),
       2, middleware({ name: 'case2' })
     )(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, {})
       done()
     })
   })
 
   it('- nesting switch statements', function (done) {
-    var req = {}
-    var res = {}
-    var a = 0
-    var b = 1
+    const req = {}
+    const res = {}
+    const a = 0
+    const b = 1
 
     chain.switch(
       a,
@@ -132,16 +137,17 @@ describe('chain.switch', function () {
         1, middleware({ name: 'caseb1' })
       )
     )(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { name: ['caseb1'] })
       done()
     })
   })
 
   it('- combining conditional switch middlewares', function (done) {
-    var req = {}
-    var res = {}
-    var a = 0
-    var b = 1
+    const req = {}
+    const res = {}
+    const a = 0
+    const b = 1
 
     chain([
       middleware({ name: 'one' }),
@@ -158,6 +164,7 @@ describe('chain.switch', function () {
       ),
       middleware({ name: 'two' })
     ])(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { name: ['one', 'casea0', 'caseb1', 'two'] })
       done()
     })

@@ -1,18 +1,18 @@
-var express = require('express')
-var chain = require('..')
+const express = require('express')
+const chain = require('..')
 
-var app = express()
-var middleware1 = function (req, res, next) {
+const app = express()
+const middleware1 = function (req, res, next) {
   res.body = req.url + '\n'
   next && next()
 }
-var middleware2 = function (req, res, next) {
+const middleware2 = function (req, res, next) {
   res.writeHead(200)
   res.write(res.body || '')
   res.end()
 }
 
-var newMiddleware = chain([ middleware1, middleware2 ])
+let newMiddleware = chain([middleware1, middleware2])
 // or to maintain backward compatibility
 newMiddleware = chain(middleware1, middleware2)
 

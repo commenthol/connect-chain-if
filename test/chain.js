@@ -9,8 +9,8 @@
 
 'use strict'
 
-var assert = require('assert')
-var chain = require('..')
+const assert = require('assert')
+const chain = require('..')
 
 /**
  * generic middleware for our tests
@@ -18,11 +18,11 @@ var chain = require('..')
  * @property {Object} options.name : push `options.name` to `res.name`
  * @property {Object} options.res : add `options.res` to `res`
  */
-var middleware = function (options) {
+const middleware = function (options) {
   options = options || {}
 
   return function (req, res, next) {
-    var i
+    let i
 
     if (options.name) {
       if (!res.name) {
@@ -47,7 +47,7 @@ var middleware = function (options) {
  * generic error trap middleware
  * @param {Boolean} bubble : bubble error event
  */
-var middlewareError = function (bubble) {
+const middlewareError = function (bubble) {
   return function (err, req, res, next) {
     if (!res.error) {
       res.error = []
@@ -63,58 +63,62 @@ var middlewareError = function (bubble) {
 
 describe('chain', function () {
   it('should chain Array with one middleware', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     chain([
       middleware({ res: { one: 1 } })
     ])(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { test: 1, one: 1 })
       done()
     })
   })
 
   it('should chain Array of middlewares', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     chain([
       middleware({ res: { one: 1 } }),
       middleware({ res: { two: 2 } })
     ])(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { test: 1, one: 1, two: 2 })
       done()
     })
   })
 
   it('should chain one middleware function', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     chain(
       middleware({ res: { one: 1 } })
     )(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { test: 1, one: 1 })
       done()
     })
   })
 
   it('should chain two middleware functions', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     chain(
       middleware({ res: { one: 1 } }),
       middleware({ res: { two: 2 } })
     )(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { test: 1, one: 1, two: 2 })
       done()
     })
   })
 
   it('should chain "chain of chains"', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     chain([
       middleware({ res: { one: 1 } }),
@@ -128,27 +132,29 @@ describe('chain', function () {
         ])
       ])
     ])(req, res, function (err) {
-      assert.deepEqual(res, {test: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6})
+      assert.equal(err, null)
+      assert.deepEqual(res, { test: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6 })
       done()
     })
   })
 
   it('should chain empty chain', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     chain([])(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { test: 1 })
       done()
     })
   })
 
   it('should chain building new chained middleware', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     // new middleware
-    var newMw = function (req, res, next) {
+    const newMw = function (req, res, next) {
       chain([
         middleware({ res: { one: 1 } }),
         middleware({ res: { two: 2 } })
@@ -157,15 +163,16 @@ describe('chain', function () {
       })
     }
 
-    chain([ newMw ])(req, res, function (err) {
+    chain([newMw])(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { test: 1, one: 1, two: 2 })
       done()
     })
   })
 
   it('should chain middleware throws exception and shall be caughth by error trap', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     chain([
       middleware({ res: { one: 1 } }),
@@ -176,6 +183,7 @@ describe('chain', function () {
       middleware({ res: { two: 2 } }),
       middlewareError()
     ])(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { test: 1, one: 1, error: ['boom'] })
       done()
     })
@@ -184,8 +192,8 @@ describe('chain', function () {
 
 describe('chain with error trap', function () {
   it('should jump over error trap', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     chain([
       middleware({ res: { one: 1 } }),
@@ -193,14 +201,15 @@ describe('chain with error trap', function () {
       middlewareError(),
       middleware({ res: { three: 3 } })
     ])(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { test: 1, one: 1, two: 2, three: 3 })
       done()
     })
   })
 
   it('should chain on error in middleware 1 jumping over middleware 2 and 3', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     chain([
       middleware({ error: 'err1', res: { one: 1 } }),
@@ -209,14 +218,15 @@ describe('chain with error trap', function () {
       middlewareError(),
       middleware({ res: { four: 4 } })
     ])(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { test: 1, one: 1, error: ['err1'], four: 4 })
       done()
     })
   })
 
   it('should chsin with error in middleware 2', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     chain([
       middleware({ res: { one: 1 } }),
@@ -224,14 +234,15 @@ describe('chain with error trap', function () {
       middlewareError(),
       middleware({ res: { three: 3 } })
     ])(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { test: 1, one: 1, two: 2, error: ['err1'], three: 3 })
       done()
     })
   })
 
   it('should chain with  error in middleware 1 and 3', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     chain([
       middleware({ error: 'err1', res: { one: 1 } }),
@@ -241,14 +252,15 @@ describe('chain with error trap', function () {
       middleware({ res: { four: 4 } }),
       middlewareError()
     ])(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { test: 1, one: 1, error: ['err1', 'err3'], three: 3 })
       done()
     })
   })
 
   it('should chain with error in middleware 2 and 4', function (done) {
-    var req = {}
-    var res = {}
+    const req = {}
+    const res = {}
 
     chain([
       middleware({ res: { one: 1 } }),
@@ -258,17 +270,18 @@ describe('chain with error trap', function () {
       middleware({ error: 'err4', res: { four: 4 } }),
       middlewareError()
     ])(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { one: 1, two: 2, error: ['err2', 'err4'], three: 3, four: 4 })
       done()
     })
   })
 
   it('should chain building new chained middleware', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     // new middleware
-    var newMw = function (req, res, next) {
+    const newMw = function (req, res, next) {
       chain([
         middleware({ res: { one: 1 } }),
         middleware({ res: { two: 2 } })
@@ -277,18 +290,19 @@ describe('chain with error trap', function () {
       })
     }
 
-    chain([ newMw ])(req, res, function (err) {
+    chain([newMw])(req, res, function (err) {
+      assert.equal(err, null)
       assert.deepEqual(res, { test: 1, one: 1, two: 2 })
       done()
     })
   })
 
   it('should chain building new chained middleware, error bubbles up', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     // new middleware
-    var newMw = function (req, res, next) {
+    const newMw = function (req, res, next) {
       chain([
         middleware({ res: { one: 1 } }),
         middleware({ error: 'bubbling error', res: { two: 2 } })
@@ -297,7 +311,7 @@ describe('chain with error trap', function () {
       })
     }
 
-    chain([ newMw ])(req, res, function (err) {
+    chain([newMw])(req, res, function (err) {
       assert.equal(err.message, 'bubbling error')
       assert.deepEqual(res, { test: 1, one: 1, two: 2 })
       done()
@@ -305,8 +319,8 @@ describe('chain with error trap', function () {
   })
 
   it('should chain middleware causing exceptions', function (done) {
-    var req = {}
-    var res = { test: 1 }
+    const req = {}
+    const res = { test: 1 }
 
     chain([
       function (req, res, next) {
